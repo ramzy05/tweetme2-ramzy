@@ -17,12 +17,23 @@ def home_view(request, *args, **kwargs):
     return render(request,'pages/home.html', context = {}, status=200)
 
 def tweet_create_view(request, *args, **kwargs):
+    '''
+    REST API Create View -> DRF
+    '''
+    user = request.user
+    is_ajax = request.POST.get('is_ajax') or None
+    if not request.user.is_authenticated:
+        user = None
+        if  is_ajax == 'true':
+            return JsonResponse({},status=401)
+        return redirect(settings.LOGIN_URL)
     form = TweetForm(request.POST or None)
     next_url = request.POST.get('next') or None
-    is_ajax = request.POST.get('is_ajax') or None
     if form.is_valid():
         obj = form.save(commit=False)
-        # obj.save()
+        # do other form related logic
+        obj.user = user
+        obj.save()
         if is_ajax == 'true':
             return JsonResponse(obj.serialize(), status=201)# 201 == create
         if next_url != None and url_has_allowed_host_and_scheme(next_url, ALLOWED_HOSTS):

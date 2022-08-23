@@ -1,22 +1,23 @@
 1. Tweets
-   -> Creating
-   -> Text
-   -> Image
-   -> Delete
-   -> Retweeting
-   -> liking
+   -> User Permissions
+      -> Creating
+         -> Text
+         -> Image -> Media Storage Server
+      -> Delete
+      -> Retweeting
+      -> liking
 
 2. Users
    -> Register
    -> Login
    -> Logout
    -> Profile
-   -> Image?
-   -> Text?
-   -> Follow Button
+      -> Image?
+      -> Text?
+      -> Follow Button
    -> Feed
-   -> User's feed only?
-   -> User + who they follow?
+      -> User's feed only?
+      -> User + who they follow?
 
 3. Following / Followers
 

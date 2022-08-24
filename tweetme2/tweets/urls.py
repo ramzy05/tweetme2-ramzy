@@ -10,7 +10,7 @@ from  .views import (
 )
 '''
 CLIENT
-Base ENDPOINT /apip/tweets/
+Base ENDPOINT /api/tweets/
 '''
 urlpatterns = [
     path('', tweet_list_view),

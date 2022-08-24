@@ -148,7 +148,6 @@ function getCookie(name) {
         const data = JSON.stringify({
             id:tweetId,
             action:action,
-            is_ajax:'true'
         })
         const xhr = new XMLHttpRequest()
         const csrftoken = getCookie('csrftoken')

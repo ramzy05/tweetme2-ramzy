@@ -65,7 +65,6 @@ def tweet_action_view(request,*args, **kwargs):
     id is required
     Action options are: like, unlike, retweet
     '''
-    is_ajax = request.data.pop('is_ajax') or None
     serializer = TweetActionSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         data = serializer.validated_data
@@ -81,13 +80,15 @@ def tweet_action_view(request,*args, **kwargs):
             return Response(serializer.data, status=200)
         elif action == 'unlike':
             obj.likes.remove(request.user)
+            serializer = TweetSerializer(obj)
+            return Response(serializer.data, status=200)  
         elif action == 'retweet':
             new_tweet = Tweet.objects.create(user=request.user,
             parent =obj,
           
             )
             serializer = TweetSerializer(new_tweet)
-            return Response(serializer.data, status=200)        
+            return Response(serializer.data, status=201)        
     return Response({}, status=200)
 
 

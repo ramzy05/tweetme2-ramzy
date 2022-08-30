@@ -1,1 +1,25 @@
 env
+# Logs
+tweetme2-web/logs
+tweetme2-web/*.log
+tweetme2-web/npm-debug.log*
+tweetme2-web/yarn-debug.log*
+tweetme2-web/yarn-error.log*
+tweetme2-web/pnpm-debug.log*
+tweetme2-web/lerna-debug.log*
+
+tweetme2-web/node_modules
+tweetme2-web/dist
+tweetme2-web/dist-ssr
+tweetme2-web/*.local
+
+# Editor directories and files
+tweetme2-web/.vscode/*
+tweetme2-web/!.vscode/extensions.json
+tweetme2-web/.idea
+tweetme2-web/.DS_Store
+tweetme2-web/*.suo
+tweetme2-web/*.ntvs*
+tweetme2-web/*.njsproj
+tweetme2-web/*.sln
+tweetme2-web/*.sw?

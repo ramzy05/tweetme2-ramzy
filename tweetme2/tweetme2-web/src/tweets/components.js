@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import { createTweet,loadTweets } from '../lookup'
+import { apiTweetCreate,apiTweetsList } from './lookup'
 
 
 export function TweetsComponent(props){
@@ -23,7 +23,7 @@ export function TweetsComponent(props){
         event.preventDefault()
         const newValue = textAreaRef.current.value
         // backend api request
-        createTweet(newValue, handleBackendUpdate)
+        apiTweetCreate(newValue, handleBackendUpdate)
         textAreaRef.current.value = ''
     } 
     return <div className={props.className}>
@@ -63,7 +63,7 @@ export function TweetsComponent(props){
             alert('There was an error')
           }
         }
-        loadTweets(myCallback)
+        apiTweetsList(myCallback)
       }
     }, [tweetsInit, tweetsDidsSet, settweetsDidsSet])
     return tweets.map((item, index) =>{

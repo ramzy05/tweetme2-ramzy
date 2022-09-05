@@ -4,7 +4,12 @@ export function apiTweetCreate(newTweet, callback){
     backendLookup('POST','/tweets/create',callback, {content:newTweet})
   }
   
-  export function apiTweetsList(callback){
+export function apiTweetAction(tweetId, action, callback){
+    const data = {id:tweetId, action:action}
+    backendLookup('POST','/tweets/action',callback, data)
+}
+  
+export function apiTweetsList(callback){
       backendLookup('GET', '/tweets/', callback)
-    }
+}
   

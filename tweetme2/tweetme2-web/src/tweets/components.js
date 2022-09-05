@@ -1,5 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react'
-import { apiTweetCreate,apiTweetsList } from './lookup'
+import { 
+  apiTweetCreate,
+  apiTweetsList,
+  apiTweetAction } from './lookup'
 
 
 export function TweetsComponent(props){
@@ -74,21 +77,21 @@ export function TweetsComponent(props){
 export function ActionBtn(props){
     const {tweet, action} = props
     const [likes, setLikes] = useState(tweet.likes ? tweet.likes : 0)
-    const [userLike, setUserLike]= useState(tweet.userLike === true ? true : false)
+    // const [userLike, setUserLike]= useState(tweet.userLike === true ? true : false)
     const className = props.className ? props.className : 'btn btn-primary btn-sm'
     const actionDisplay = action.display ? action.display : 'Action'
+    
+    const handleActionBackendEvent = (response, status) => {
+      console.log(response, status)
+      if (status === 200){
+        setLikes(response.likes)
+        // setUserLike(true)
+      }
+    }
     const handleClick = (event) =>{
         event.preventDefault()
-        if (action.type === 'like'){
-            if(userLike === true){
-                // perhaps i Unlike it?
-                setLikes(likes-1)
-                setUserLike(false)
-            }else{
-                setUserLike(true)
-                setLikes(likes+1)
-            }
-        }
+        apiTweetAction(tweet.id, action.type, handleActionBackendEvent)
+       
     } 
     const display = action.type === 'like' ? `${likes} ${actionDisplay}` : actionDisplay
     return  <button className={className} onClick={handleClick}>{display}</button>
@@ -102,7 +105,7 @@ export  function Tweet(props){
         <div className='btn-group'>
           <ActionBtn tweet={tweet} action={{type:'like', display:'Likes'}}/>
           <ActionBtn tweet={tweet} action={{type:'unlike', display:'Unlikes'}}/>
-          <ActionBtn tweet={tweet} action={{type:'retweet'}}/>
+          <ActionBtn tweet={tweet} action={{type:'retweet', display:'Retweet'}}/>
         </div>
     </div>
   }

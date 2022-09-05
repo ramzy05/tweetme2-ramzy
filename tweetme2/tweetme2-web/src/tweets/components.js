@@ -55,7 +55,7 @@ export function TweetsComponent(props){
 
     useEffect(() => {
       if (tweetsDidsSet === false){
-        const myCallback = (response, status) => { 
+        const handleTweetLookup = (response, status) => { 
           if(status === 200){
             setTweetsInit(response)
             settweetsDidsSet(true)
@@ -63,7 +63,7 @@ export function TweetsComponent(props){
             alert('There was an error')
           }
         }
-        apiTweetsList(myCallback)
+        apiTweetsList(handleTweetLookup)
       }
     }, [tweetsInit, tweetsDidsSet, settweetsDidsSet])
     return tweets.map((item, index) =>{

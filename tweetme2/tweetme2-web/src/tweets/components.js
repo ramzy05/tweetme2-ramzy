@@ -34,9 +34,10 @@ export function TweetsComponent(props){
 
  export function TweetsList(props) {
     const [tweetsInit, setTweetsInit] = useState([])
+    console.log(tweetsInit)
     const [tweets, setTweets] = useState([])
     // setTweetsInit([...props.newTweets].concat(tweetsInit))
-    
+    const [tweetsDidsSet, settweetsDidsSet] = useState(false)
     useEffect(() => {
         // setTweetsInit([...props.newTweets].concat(tweetsInit))
         let final = [...props.newTweets].concat(tweetsInit)
@@ -46,15 +47,18 @@ export function TweetsComponent(props){
     }, [props.newTweets, tweets,tweetsInit])
 
     useEffect(() => {
-      const myCallback = (response, status) => { 
-        if(status === 200){
-          setTweetsInit(response)
-        }else{
-          alert('There was an error')
+      if (tweetsDidsSet === false){
+        const myCallback = (response, status) => { 
+          if(status === 200){
+            setTweetsInit(response)
+            settweetsDidsSet(true)
+          }else{
+            alert('There was an error')
+          }
         }
+        loadTweets(myCallback)
       }
-      loadTweets(myCallback)
-    }, [])
+    }, [tweetsInit, tweetsDidsSet, settweetsDidsSet])
     return tweets.map((item, index) =>{
       return <Tweet tweet={item} className='my-5 py-5 border bg-white text-dark' key={`${index}-${item.id}`}/>
     } )
